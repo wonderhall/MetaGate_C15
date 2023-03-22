@@ -1,0 +1,26 @@
+Universal Rendering Pipeline. 
+
+--------
+
+Candles and Candlestick Mini Pack it's a lowpoly game ready pack of models with unwrapped UVs and PBR textures.
+
+Candle flame is a simple plane without animation and particle effect. 
+
+--------
+
+Number of Unique Meshes: 5
+Number of Prefabs: 13
+Number of Materials: 3
+Number of Textures: 10
+Polycount: from 556 to 4560 tris
+
+Textures resolution: 2048x2048px (AlbedoTransparency, AO, Normal, MetallicSmoothness, Emission). 
+Textures format: TGA.
+
+UVs: channel 0: overlapping; channel 1: non-overlapping (for baking lightmaps).
+
+--------
+
+
+If you have any questions, please write me on e-mail.
+My e-mail: gladkaya.3d@gmail.com

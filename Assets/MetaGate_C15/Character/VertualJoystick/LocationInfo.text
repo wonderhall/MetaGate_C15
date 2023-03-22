@@ -1,0 +1,80 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LocationInfo : MonoBehaviour
+{
+
+    private GameObject theCube;
+    private PlayerInfo pf;
+
+    [SerializeField]
+    private bool MoveUpdate = false;
+
+    public GameObject thePlayer;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+        // 플레이어 가져오기
+        pf = GameObject.FindObjectOfType<PlayerInfo>();
+        thePlayer = pf.thePlayer;
+
+        // 초기 한번 서버 접속
+        OnSocket();
+
+
+        Debug.Log(thePlayer.transform.position.x);
+
+
+        NetworkManager.Instance.OnConnectedUser = OnConnectedUser;
+        NetworkManager.Instance.OnJoinSuccessUser = OnJoinSuccessUser;
+    }
+
+    private void OnConnectedUser(bool obj)
+    {
+        Debug.Log("OnConnectedUser----------");
+
+       NetworkManager.Instance.OnJoinReal(thePlayer.transform.position.x, thePlayer.transform.position.y, thePlayer.transform.position.z,
+           thePlayer.transform.eulerAngles.x, thePlayer.transform.eulerAngles.y, thePlayer.transform.eulerAngles.z);
+    }
+    private void OnJoinSuccessUser(bool obj)
+    {
+
+        Debug.Log("OnJoinSuccessUser----------");
+        MoveUpdate = true;
+    }
+    bool binit = true;
+    void Update()
+    {
+        Debug.Log("player:x:" + thePlayer.transform.position.x + "y:" +thePlayer.transform.position.y + "z:" + thePlayer.transform.position.z);
+
+        if (MoveUpdate)
+        {
+            NetworkManager.Instance.OnPlayerMove(thePlayer.transform.position.x, thePlayer.transform.position.y, thePlayer.transform.position.z);
+        }
+        /*
+        if (locationProvider.Provider.GetStatusString() == "Started" && binit == true)
+        {
+            if (binit == false)
+                binit = true;
+            else if (binit == true)
+            {
+                binit = false;
+            }
+
+        }
+        */
+    }
+
+
+
+
+    private void OnSocket()
+    {
+        NetworkManager.Instance.Socket();
+
+    }
+}
