@@ -8483,6 +8483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4209f03a0d2dd94d988395bb0626ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomName: 
   name: yht2
   id: 
   chType: 1
