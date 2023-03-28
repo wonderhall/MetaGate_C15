@@ -15,8 +15,8 @@ MonoBehaviour:
   projectName: Metagate_C15
   windowPosition:
     serializedVersion: 2
-    x: 985
-    y: 237
+    x: 396
+    y: 181
     width: 620
     height: 676
   representLogsInScene: 1
@@ -69,8 +69,8 @@ MonoBehaviour:
     addMeshCollider: 0
   combineChildrens: 1
   combineInactives: 0
-  lightmapSupport: 0
+  lightmapSupport: 1
   saveMeshInAssets: 1
   savePrefabOfThis: 0
   prefabName: prefab
-  nameOfThisMerge: CB Sc02_deckFence
+  nameOfThisMerge: CB Pillar_roof_side

@@ -57,7 +57,7 @@ public class OnScreenKeyboard : MonoBehaviour
         if (targetInputField == null) return;
 
         //hide a mobile keyboard
-        //ForceToCloseMobileKeyboard();
+        ForceToCloseMobileKeyboard();
 
         //Detect Language 
         if (beforeLang != curLang)
@@ -149,7 +149,7 @@ public class OnScreenKeyboard : MonoBehaviour
         InputProcess(value);
     }
 
-    public void ShowKeyboard(/*InputField inputField,*/TMP_InputField inputField, OnScreenKeyboardInputfield oskInputField) {
+    public void ShowKeyboard(/*InputField inputField,*/ TMP_InputField inputField ,OnScreenKeyboardInputfield oskInputField) {
         Initialize(inputField, oskInputField);
         InputProcess();
         gameObject.SetActive(true);
@@ -185,7 +185,7 @@ public class OnScreenKeyboard : MonoBehaviour
         }
     }
     
-    private void Initialize(/*InputField inputField,*/TMP_InputField inputField, OnScreenKeyboardInputfield oskInputField)
+    private void Initialize(/*InputField inputField,*/ TMP_InputField inputField, OnScreenKeyboardInputfield oskInputField)
     {
         targetInputField = inputField;
         currentOskInputfield = oskInputField;
@@ -200,7 +200,7 @@ public class OnScreenKeyboard : MonoBehaviour
         }
         
         ChangeKeyboardType(curLang, curCaps);
-        //ForceToCloseMobileKeyboard();
+        ForceToCloseMobileKeyboard();
     }
     
     void ChangeKeyboardType(CurLang curLang, Caps caps) {
@@ -280,15 +280,17 @@ public class OnScreenKeyboard : MonoBehaviour
         currentString = GetInputFieldText();
         showTextField.text =  GetInputFieldText();
     }
-    
-    //private void ForceToCloseMobileKeyboard()
-    //{
-    //    if (targetInputField == null) return;
 
-    //    if (targetInputField.touchScreenKeyboard != null)
-    //        targetInputField.touchScreenKeyboard.active = false;
+    private void ForceToCloseMobileKeyboard()
+    {
+        if (targetInputField == null) return;
 
-    //}
+        //if (targetInputField.touchScreenKeyboard != null)
+        //    targetInputField.touchScreenKeyboard.active = false;
+        //if (targetInputField.onTouchScreenKeyboardStatusChanged != null)
+            targetInputField.shouldHideMobileInput = true;
+
+    }
 
     private void ClearAllStrValue()
     {

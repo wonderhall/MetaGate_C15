@@ -35,6 +35,7 @@ public class OnScreenKeyboardInputfield : MonoBehaviour, IPointerDownHandler
         {
             targetOnScreenKeyboard.gameObject.SetActive(true);
             targetOnScreenKeyboard.ShowKeyboard(_inputField, this);
+            _inputField.shouldHideMobileInput = true;//다른 모바일 인풋 하이드
         }
     }
 }
