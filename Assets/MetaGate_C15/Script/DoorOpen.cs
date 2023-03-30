@@ -96,8 +96,8 @@ public class DoorOpen : MonoBehaviour
         {
             Debug.Log("OnTriggerEnter : Playertag : " + other.tag);
             Debug.Log("OnTriggerEnter : PlayerIsBreakNet : " + IsBreakNet);
-            StartCoroutine(loadSc(SceneName));
             StartCoroutine(ScreenFade(0, 1));
+            //StartCoroutine(loadSc(SceneName));
             if (IsBreakNet)
             {
                 //여기다 디스커넥트
@@ -156,7 +156,8 @@ public class DoorOpen : MonoBehaviour
             SetAlpha();
             yield return new WaitForEndOfFrame();
         }
-        yield return new WaitForSeconds(1);
+        StartCoroutine(loadSc(SceneName));
+        yield return new WaitForSeconds(0.1f);
         IsDone = true;
     }
 
