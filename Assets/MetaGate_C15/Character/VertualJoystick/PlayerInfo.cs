@@ -68,11 +68,13 @@ public class PlayerInfo : MonoBehaviour
             chType = PlayerPrefs.GetString("m_chType");
 #if ForAndroid
         _dvType = deviceType.android;
-        if (SceneManager.GetActiveScene().name != "Ss_Lobby")
+        if (SceneManager.GetActiveScene().name != "Ss_Lobby"|| SceneManager.GetActiveScene().name != "vatican")
         {
             Debug.Log(SceneManager.GetActiveScene().name);
             emoUI.SetActive(false);
         }
+        if(GameObject.Find("WarningWall")!=null)
+            GameObject.Find("WarningWall").SetActive(false);
         //프리팹에 저장된 캐릭터타입
         if (PlayerPrefs.GetString("m_chType") == "male") { ChImage.sprite = ChImages[0]; } //0은남자1은여자 
         else { ChImage.sprite = ChImages[1]; }
