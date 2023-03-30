@@ -13,7 +13,7 @@ public class EventInfo : MonoBehaviour
     public bool isFadeIn;
     public bool isFadeOut;
     public float gradientTime = 3f;
-    public Renderer renderer = new Renderer();
+    public new Renderer renderer = new Renderer();
 
 
 

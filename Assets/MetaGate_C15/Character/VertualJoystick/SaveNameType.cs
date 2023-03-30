@@ -29,6 +29,8 @@ public class SaveNameType : MonoBehaviour
     [Tooltip("FadeOut color.")]
     public Color fadeOutColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 
+    AsyncOperation async;
+
     private void Awake()
     {
 #if ForAndroid
@@ -52,7 +54,8 @@ public class SaveNameType : MonoBehaviour
         //Use onSubmit
         inputField.onSubmit.AddListener(delegate { LockInput(inputField); });
 
-
+        async = SceneManager.LoadSceneAsync(SceneName,LoadSceneMode.Single);//add
+        async.allowSceneActivation= false;
     }
 
 
@@ -120,18 +123,26 @@ public class SaveNameType : MonoBehaviour
 
     IEnumerator loadSc(string scName)
     {
+        //yield return null;
+        //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scName);
+        //asyncOperation.allowSceneActivation = false;
+        //while (!asyncOperation.isDone)
+        //{
+        //    //if (Input.GetKeyDown(KeyCode.L))
+        //    if (IsDone)
+        //        asyncOperation.allowSceneActivation = true;
+        //    yield return null;
+        //}
+
         yield return null;
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scName);
-        asyncOperation.allowSceneActivation = false;
-        while (!asyncOperation.isDone)
+        while (!async.isDone)
         {
             //if (Input.GetKeyDown(KeyCode.L))
             if (IsDone)
-                asyncOperation.allowSceneActivation = true;
+                async.allowSceneActivation = true;
             yield return null;
         }
 
-        SceneManager.LoadSceneAsync(scName, LoadSceneMode.Single);
     }
 
     ////스크린 페이드 ///

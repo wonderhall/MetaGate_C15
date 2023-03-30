@@ -68,7 +68,7 @@ public class PlayerInfo : MonoBehaviour
             chType = PlayerPrefs.GetString("m_chType");
 #if ForAndroid
         _dvType = deviceType.android;
-        if (SceneManager.GetActiveScene().name != "Ss_Lobby"|| SceneManager.GetActiveScene().name != "vatican")
+        if (SceneManager.GetActiveScene().name != "Ss_Lobby"&& SceneManager.GetActiveScene().name != "vatican")
         {
             Debug.Log(SceneManager.GetActiveScene().name);
             emoUI.SetActive(false);
@@ -131,7 +131,7 @@ public class PlayerInfo : MonoBehaviour
         //안드로이드 업데이트
         if (_dvType == deviceType.android && UseNetWork)
         {
-            Debug.Log("and");
+            //Debug.Log("and");
             if (IsWalk && UseNetWork)//if (MoveUpdate)에서 변경
             {
                 NetworkManager.Instance.OnPlayerMove(thePlayer.transform.position.x, thePlayer.transform.position.y, thePlayer.transform.position.z);
