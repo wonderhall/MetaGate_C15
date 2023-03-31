@@ -33,16 +33,16 @@ public class SaveNameType : MonoBehaviour
 
     private void Awake()
     {
-#if ForAndroid
-        deviceType[0].SetActive(true);
-        deviceType[1].SetActive(false);
-        StartCoroutine(imgFade(1, 0, fadeInColor,false)); 
-        return;
-#endif
-#if ForVR
-        deviceType[0].SetActive(false);
-        deviceType[1].SetActive(true);
-#endif
+        //#if ForAndroid
+        //        deviceType[0].SetActive(true);
+        //        deviceType[1].SetActive(false);
+        //        StartCoroutine(imgFade(1, 0, fadeInColor, false));
+        //        return;
+        //#endif
+        //#if ForVR
+        //        deviceType[0].SetActive(false);
+        //        deviceType[1].SetActive(true);
+        //#endif
     }
     private void Start()
     {
@@ -54,8 +54,11 @@ public class SaveNameType : MonoBehaviour
         //Use onSubmit
         inputField.onSubmit.AddListener(delegate { LockInput(inputField); });
 
-        async = SceneManager.LoadSceneAsync(SceneName,LoadSceneMode.Single);//add
-        async.allowSceneActivation= false;
+        if (!GameObject.FindObjectOfType<Loading>()) 
+        {
+            async = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Single);//add
+            async.allowSceneActivation = false;
+        }
     }
 
 
@@ -97,8 +100,17 @@ public class SaveNameType : MonoBehaviour
         Debug.Log(PlayerPrefs.GetString("m_name"));
 #if ForAndroid
         Debug.Log("안드로이드용");
-        StartCoroutine(imgFade(0, 1, fadeOutColor,true));
-        StartCoroutine(loadSc(SceneName));
+        //if (GameObject.FindObjectOfType<PlayerInfo>().iosFadeIn)
+        if (GameObject.FindObjectOfType<Loading>())
+        {
+            Loading.instance.changeScene("Ss_Lobby");
+        }
+        else
+        {
+            StartCoroutine(imgFade(0, 1, fadeOutColor, true));
+            StartCoroutine(loadSc(SceneName));
+        }
+
         return;
 #endif
 #if ForVR
@@ -123,17 +135,6 @@ public class SaveNameType : MonoBehaviour
 
     IEnumerator loadSc(string scName)
     {
-        //yield return null;
-        //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scName);
-        //asyncOperation.allowSceneActivation = false;
-        //while (!asyncOperation.isDone)
-        //{
-        //    //if (Input.GetKeyDown(KeyCode.L))
-        //    if (IsDone)
-        //        asyncOperation.allowSceneActivation = true;
-        //    yield return null;
-        //}
-
         yield return null;
         while (!async.isDone)
         {

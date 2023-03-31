@@ -41,6 +41,7 @@ public class PlayerInfo : MonoBehaviour
     public bool UseNetWork;
     [SerializeField]
     private bool MoveUpdate = false;
+    public bool IsRotate = false;
 
     [Header("vr모드 전용")]//vr모드 전용
     public showVrUI _showVrUI;
@@ -52,12 +53,16 @@ public class PlayerInfo : MonoBehaviour
     public Sprite[] ChImages;
     public GameObject emoTextBox;
 
+
+    [Header("ios 전용")]// ios전용
+    public bool iosFadeIn;
+    public GameObject loginProGress;
+
     // Start is called before the first frame update
-    //디버깅
+    [Header("디버깅 전용")]// 
     private GUIStyle guiStyle = new GUIStyle();
     public bool isGuiDebug;
     public Text debugText;
-    public bool IsRotate = false;
 
     private void Awake()
     {
@@ -79,6 +84,18 @@ public class PlayerInfo : MonoBehaviour
         if (PlayerPrefs.GetString("m_chType") == "male") { ChImage.sprite = ChImages[0]; } //0은남자1은여자 
         else { ChImage.sprite = ChImages[1]; }
         savedSprite = ChImage.sprite;
+        if(iosFadeIn) //ios일 경우 시작시 페이드인
+        {
+            if (!GameObject.FindObjectOfType<Loading>()) 
+                Instantiate(loginProGress);
+
+            //Loading.instance.img.gameObject.SetActive(true);
+            Color cColor;//임시 칼라 생성
+            if (Loading.instance.IsNextBlackScreen) cColor = Color.black; else cColor = Color.white; //페이드할 스크린이 블랙인지 화이트인지
+
+            Loading.instance.StartCoroutine(Loading.instance.imgFade(1,0,cColor,false));
+        
+        }
 #endif
 #if ForVR
         _dvType = deviceType.vr;

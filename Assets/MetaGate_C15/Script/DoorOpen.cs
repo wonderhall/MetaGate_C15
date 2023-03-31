@@ -18,7 +18,8 @@ public class DoorOpen : MonoBehaviour
     [Tooltip("Basic color.")]
     public Color fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 
-
+    [Header("ios Door")]
+    public bool iosDoor;
     //private Animator _animator;
 
     // Use this for initialization
@@ -52,7 +53,7 @@ public class DoorOpen : MonoBehaviour
     {
         //cInfo = GameObject.FindObjectOfType<PlayerInfo>();
 
-       // Debug.Log("Start SID: " + NetworkManager.cInfo.id + "---------------------------");
+        // Debug.Log("Start SID: " + NetworkManager.cInfo.id + "---------------------------");
 
     }
     void OnTriggerEnter(Collider other)
@@ -135,7 +136,7 @@ public class DoorOpen : MonoBehaviour
         {
             //if (Input.GetKeyDown(KeyCode.L))
             if (IsDone)
-                    asyncOperation.allowSceneActivation = true;
+                asyncOperation.allowSceneActivation = true;
             yield return null;
         }
 
@@ -144,21 +145,30 @@ public class DoorOpen : MonoBehaviour
 
     public IEnumerator ScreenFade(float start, float end)
     {
-        Camera cam = Camera.main;
-        renderer = cam.GetComponent<Renderer>();
-        renderer.enabled = true;
-        float nowTime = 0.0f;
-        while (nowTime < gradientTime)
+        if (iosDoor)
         {
-            //Debug.Log(nowFadeAlpha);
-            nowTime += Time.deltaTime;
-            nowFadeAlpha = Mathf.Lerp(start, end, Mathf.Clamp01(nowTime / gradientTime));
-            SetAlpha();
-            yield return new WaitForEndOfFrame();
+            Loading.instance.IsNextBlackScreen = false;
+            Loading.instance.changeScene(SceneName);
         }
-        StartCoroutine(loadSc(SceneName));
-        yield return new WaitForSeconds(0.1f);
-        IsDone = true;
+        else
+        {
+            Camera cam = Camera.main;
+            renderer = cam.GetComponent<Renderer>();
+            renderer.enabled = true;
+            float nowTime = 0.0f;
+            while (nowTime < gradientTime)
+            {
+                //Debug.Log(nowFadeAlpha);
+                nowTime += Time.deltaTime;
+                nowFadeAlpha = Mathf.Lerp(start, end, Mathf.Clamp01(nowTime / gradientTime));
+                SetAlpha();
+                yield return new WaitForEndOfFrame();
+            }
+            StartCoroutine(loadSc(SceneName));
+            yield return new WaitForSeconds(0.1f);
+            IsDone = true;
+        }
+
     }
 
     private void SetAlpha()
